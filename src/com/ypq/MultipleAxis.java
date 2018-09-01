@@ -19,8 +19,8 @@ import org.jfree.data.xy.XYDataset;
 import com.ypq.DataSet.Data;
 
 /**
- * »æÍ¼Àà,Ö÷Òª¹¹Ôì²ÎÊıÊÇ³¡´ÎºÍÂíÆ¥,±íÃ÷¸Ã»æÍ¼ĞèÒª»æÖÆÄÄ¸ö³¡´ÎµÄÄÄÆ¥Âí,ÁíÍâËùÓĞ»æÍ¼¶ÔÏó¹²ÏíÒ»¸öDataSetÊı¾İ¼¯,
- * ¸ÃÊı¾İ¼¯±íÃ÷µ±Ìì±ÈÈüËùÓĞ³¡´ÎËùÓĞÂíÆ¥µÄÊı¾İ
+ * ç»˜å›¾ç±»,ä¸»è¦æ„é€ å‚æ•°æ˜¯åœºæ¬¡å’Œé©¬åŒ¹,è¡¨æ˜è¯¥ç»˜å›¾éœ€è¦ç»˜åˆ¶å“ªä¸ªåœºæ¬¡çš„å“ªåŒ¹é©¬,å¦å¤–æ‰€æœ‰ç»˜å›¾å¯¹è±¡å…±äº«ä¸€ä¸ªDataSetæ•°æ®é›†,
+ * è¯¥æ•°æ®é›†è¡¨æ˜å½“å¤©æ¯”èµ›æ‰€æœ‰åœºæ¬¡æ‰€æœ‰é©¬åŒ¹çš„æ•°æ®
  * 
  * @author god
  * 
@@ -34,7 +34,7 @@ public class MultipleAxis {
 	private static final long MINUTES30 = 30 * 60 * 1000;
 
 	/**
-	 * ÉèÖÃ¸ÃÍ¼ÏÔÊ¾ÄÄÒ»³¡
+	 * è®¾ç½®è¯¥å›¾æ˜¾ç¤ºå“ªä¸€åœº
 	 * 
 	 * @param race
 	 */
@@ -43,7 +43,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * ÉèÖÃ¸ÃÍ¼ÏÔÊ¾ÄÄÒ»Ö»Âí
+	 * è®¾ç½®è¯¥å›¾æ˜¾ç¤ºå“ªä¸€åªé©¬
 	 * 
 	 * @param horse
 	 */
@@ -52,7 +52,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * ¹¹ÔìÊ±Ö¸Ã÷¸ÃÍ¼ÊÇÏÔÊ¾ÄÄÒ»Ö»Âí
+	 * æ„é€ æ—¶æŒ‡æ˜è¯¥å›¾æ˜¯æ˜¾ç¤ºå“ªä¸€åªé©¬
 	 * 
 	 * @param horse
 	 */
@@ -66,7 +66,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * ´´½¨Ò»¸öjfreechar,¸ÃchartÏÂÃæ°üº¬ÁËÍ¼±êµÄÀàĞÍ(multipleAxis),xyplotµÄĞÅÏ¢
+	 * åˆ›å»ºä¸€ä¸ªjfreechar,è¯¥chartä¸‹é¢åŒ…å«äº†å›¾æ ‡çš„ç±»å‹(multipleAxis),xyplotçš„ä¿¡æ¯
 	 * 
 	 * @param horse
 	 * @return
@@ -83,21 +83,21 @@ public class MultipleAxis {
 		xyplot.getRangeAxis().setFixedDimension(20D);
 		xyplot.getRangeAxis().setAutoRange(false);
 		xyplot.getDomainAxis().setAutoRange(false);
-		xyplot.getRenderer().setSeriesPaint(BestData.WIN, Color.RED); // WinÓÃºìÉ«
-		xyplot.getRenderer().setSeriesPaint(BestData.PLACE, Color.GREEN); // PlaceÓÃÂÌÉ«
-		xyplot.getRenderer().setSeriesPaint(BestData.WIN_PLACE, Color.BLUE);// Win_PlaceÓÃÀ¶É«
+		xyplot.getRenderer().setSeriesPaint(BestData.WIN, Color.RED); // Winç”¨çº¢è‰²
+		xyplot.getRenderer().setSeriesPaint(BestData.PLACE, Color.GREEN); // Placeç”¨ç»¿è‰²
+		xyplot.getRenderer().setSeriesPaint(BestData.WIN_PLACE, Color.BLUE);// Win_Placeç”¨è“è‰²
 		xyplot.getRenderer().setSeriesStroke(BestData.WIN,
-				new BasicStroke(2.0F)); // ÉèÖÃ´ÖÏ¸Îª2
+				new BasicStroke(2.0F)); // è®¾ç½®ç²—ç»†ä¸º2
 		xyplot.getRenderer().setSeriesStroke(BestData.PLACE,
 				new BasicStroke(2.0F));
 		xyplot.getRenderer().setSeriesStroke(BestData.WIN_PLACE,
 				new BasicStroke(2.0F));
-		xyplot.setBackgroundPaint(Color.WHITE); // ±³¾°É«Îª°×É«
+		xyplot.setBackgroundPaint(Color.WHITE); // èƒŒæ™¯è‰²ä¸ºç™½è‰²
 		return jfreechart;
 	}
 
 	/**
-	 * ¸ù¾İDataSetµÄraceºÍhorseÕÒµ½Êı¾İ(·Öwin,place,win_placeÈıÖÖÊı¾İ),Éú³ÉxyÖáµÄÊı¾İ
+	 * æ ¹æ®DataSetçš„raceå’Œhorseæ‰¾åˆ°æ•°æ®(åˆ†win,place,win_placeä¸‰ç§æ•°æ®),ç”Ÿæˆxyè½´çš„æ•°æ®
 	 * 
 	 * @param s
 	 * @param race
@@ -105,7 +105,7 @@ public class MultipleAxis {
 	 * @return
 	 */
 	private static XYDataset createDataset(String s, int race, int horse) {
-		TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection(); // Ò»¸öTimeSeriesCollectionÀïÃæ°üº¬ÁË¶à¸öTimeSeries,Ã¿Ò»¸öTimeSeries·Ö±ğ¾ÍÊÇwin,place,win_place
+		TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection(); // ä¸€ä¸ªTimeSeriesCollectioné‡Œé¢åŒ…å«äº†å¤šä¸ªTimeSeries,æ¯ä¸€ä¸ªTimeSeriesåˆ†åˆ«å°±æ˜¯win,place,win_place
 		TimeSeries timeSeriesWin = new TimeSeries(s);
 		for (Data e : DataSet.getInstance().getElement(race, horse)) {
 			RegularTimePeriod regularTimePeriod = new Second(e.date);
@@ -131,7 +131,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * ´´½¨Ò»¸ö°üº¬ÁËjfreechartºÍpanelµÄÍ¼
+	 * åˆ›å»ºä¸€ä¸ªåŒ…å«äº†jfreechartå’Œpanelçš„å›¾
 	 * 
 	 * @param horse
 	 * @return
@@ -144,7 +144,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * ¸ù¾İcreateDatasetÉú³É×îĞÂÊı¾İÈ¥¸üĞÂxyÖá
+	 * æ ¹æ®createDatasetç”Ÿæˆæœ€æ–°æ•°æ®å»æ›´æ–°xyè½´
 	 */
 	public void updateDataSet() {
 		XYPlot xyplot = (XYPlot) jfreechart.getPlot();
@@ -152,16 +152,16 @@ public class MultipleAxis {
 		if (xydataset == null)
 			return;
 		xyplot.getDomainAxis().setRange(dataSet.minTime(race),
-				dataSet.minTime(race) + MINUTES30); // Ã¿´ÎupdateDataSet¶¼ÒªĞŞ¸Äºá×ø±êºÍ×İ×ø±êµÄ·¶Î§,ºá×ø±ê·¶Î§Îª×î[¿ªÊ¼Ê±¼ä,
-													// ¿ªÊ¼Ê±¼ä+30·ÖÖÓ]
+				dataSet.minTime(race) + MINUTES30); // æ¯æ¬¡updateDataSetéƒ½è¦ä¿®æ”¹æ¨ªåæ ‡å’Œçºµåæ ‡çš„èŒƒå›´,æ¨ªåæ ‡èŒƒå›´ä¸ºæœ€[å¼€å§‹æ—¶é—´,
+													// å¼€å§‹æ—¶é—´+30åˆ†é’Ÿ]
 //		xyplot.getRangeAxis().setRange(dataSet.minDiscount(race, horse) - 1,
-//				dataSet.maxDiscount(race, horse) + 1); // ×İ×ø±ê·¶Î§ÊÇ[×îĞ¡ÕÛ¿Û-1, ×î´óÕÛ¿Û+1]
-		xyplot.getRangeAxis().setRange(75, 100); // ×İ×ø±ê·¶Î§ÊÇ[×îĞ¡ÕÛ¿Û-1, ×î´óÕÛ¿Û+1]
+//				dataSet.maxDiscount(race, horse) + 1); // çºµåæ ‡èŒƒå›´æ˜¯[æœ€å°æŠ˜æ‰£-1, æœ€å¤§æŠ˜æ‰£+1]
+		xyplot.getRangeAxis().setRange(75, 100); // çºµåæ ‡èŒƒå›´æ˜¯[æœ€å°æŠ˜æ‰£-1, æœ€å¤§æŠ˜æ‰£+1]
 		xyplot.setDataset(xydataset);
 	}
 
 	/**
-	 * »ñµÃÕû¸öDataSet
+	 * è·å¾—æ•´ä¸ªDataSet
 	 * 
 	 * @return
 	 */
@@ -170,7 +170,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * »ñµÃpanel
+	 * è·å¾—panel
 	 * 
 	 * @return
 	 */
@@ -179,7 +179,7 @@ public class MultipleAxis {
 	}
 
 	/**
-	 * »ñµÃjfreechart
+	 * è·å¾—jfreechart
 	 * 
 	 * @return
 	 */

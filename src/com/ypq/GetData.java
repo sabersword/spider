@@ -11,19 +11,19 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 /**
- * ·â×°ÁËhttpµÄget,ÓÃÓÚ»ñÈ¡Êı¾İ
+ * å°è£…äº†httpçš„get,ç”¨äºè·å–æ•°æ®
  * @author god
  *
  */
 public class GetData {
 	private String date = null;
 	private String raceType = null; 
-	private int race = 1;				//Ä¬ÈÏµÚÒ»³¡,Èç¹ûÊÇ0µÄ»°Ôò»ñÈ¡È«²¿³¡´Î
+	private int race = 1;				//é»˜è®¤ç¬¬ä¸€åœº,å¦‚æœæ˜¯0çš„è¯åˆ™è·å–å…¨éƒ¨åœºæ¬¡
 	private OkHttpClient client;
 	private static final String limitDate = "20201021";
 	
 	/**
-	 * »ñÈ¡Êı¾İµÄ·½·¨,ĞèÒªµÄ²ÎÊıÊÇÈÕÆÚdate,ÀàĞÍraceType,³¡´Îrace
+	 * è·å–æ•°æ®çš„æ–¹æ³•,éœ€è¦çš„å‚æ•°æ˜¯æ—¥æœŸdate,ç±»å‹raceType,åœºæ¬¡race
 	 */
 	public void toGetData() {
 		//http://info.ctb988.net/betdata?race_date=07-07-2016&race_type=9U&rc=6&m=HK&c=3&lu=0
@@ -39,17 +39,17 @@ public class GetData {
 		
 		call.enqueue(new Callback() {
 			/**
-			 * http·µ»Ø³É¹¦µÄ·½·¨
+			 * httpè¿”å›æˆåŠŸçš„æ–¹æ³•
 			 */
 			public void onResponse(Response response) throws IOException {
 				String body = response.body().string();
 				BestData bestData = new BestData();
 				int race = 0;
-				//Ñ­»·ÕÒ³öÃ¿Ò»ĞĞµÄÊı¾İ
+				//å¾ªç¯æ‰¾å‡ºæ¯ä¸€è¡Œçš„æ•°æ®
 				Matcher row = Pattern.compile("\\d{1,2}\\\\t\\d{1,2}\\\\t\\d+\\\\t\\d+\\\\t\\d+(.\\d)?.+?\\\\n").matcher(body);
 				while(row.find()) {
 					String rowData = row.group();
-					//Ñ­»·ÕÒ³öÃ¿Ò»ÁĞÊı¾İ		
+					//å¾ªç¯æ‰¾å‡ºæ¯ä¸€åˆ—æ•°æ®		
 					Matcher column = Pattern.compile("((?<=\\\\n).+?(?=\\\\t))|(\\d+(?=\\\\t))").matcher(rowData);
 					while(column.find()) {
 						race = Integer.parseInt(column.group());
@@ -74,7 +74,7 @@ public class GetData {
 				DataSet.getInstance().writeFile();
 			}
 			/**
-			 * http·µ»ØÊ§°ÜµÄ·½·¨
+			 * httpè¿”å›å¤±è´¥çš„æ–¹æ³•
 			 */
 			public void onFailure(Request arg0, IOException arg1) {
 				System.out.println("request toGetData fail!!!");
@@ -83,7 +83,7 @@ public class GetData {
 	}
 
 	/**
-	 * ¹¹Ôìº¯Êı,³õÊ¼»¯Õû¸öÈÕÆÚºÍÀàĞÍ
+	 * æ„é€ å‡½æ•°,åˆå§‹åŒ–æ•´ä¸ªæ—¥æœŸå’Œç±»å‹
 	 * @param date
 	 * @param raceType
 	 */
@@ -95,7 +95,7 @@ public class GetData {
 
 
 	/**
-	 * Éè¶¨³¡´Î
+	 * è®¾å®šåœºæ¬¡
 	 * @param race
 	 */
 	public void setRace(int race) {
@@ -103,7 +103,7 @@ public class GetData {
 	}
 
 	/**
-	 * Éè¶¨ÈÕÆÚ
+	 * è®¾å®šæ—¥æœŸ
 	 * @param date
 	 */
 	public void setDate(String date) {
@@ -111,7 +111,7 @@ public class GetData {
 	}
 
 	/**
-	 * Éè¶¨ÀàĞÍ
+	 * è®¾å®šç±»å‹
 	 * @param raceType
 	 */
 	public void setRaceType(String raceType) {
@@ -119,7 +119,7 @@ public class GetData {
 	}
 
 	/**
-	 * »ñµÃÈÕÆÚ
+	 * è·å¾—æ—¥æœŸ
 	 * @return
 	 */
 	public String getDate() {
@@ -127,7 +127,7 @@ public class GetData {
 	}
 
 	/**
-	 * »ñµÃÀàĞÍ
+	 * è·å¾—ç±»å‹
 	 * @return
 	 */
 	public String getRaceType() {

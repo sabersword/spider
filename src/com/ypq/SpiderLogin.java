@@ -27,11 +27,11 @@ import com.squareup.okhttp.Response;
 
 public class SpiderLogin {
 	private OkHttpClient client;
-	private String location = null, jsessionid = null, valid = null, code = null;	//¼¸¸öÖØÒªµÄµÇÂ½±äÁ¿,locationÓÃÓÚÕÒµ½Ö÷Ò³,JSESSIONIDÓÃÓÚheaderµÄ±êÊ¶,validÓÃÓÚÕËºÅÃÜÂëµÇÂ½¼ÓÃÜ,codeÓÃÓÚÑéÖ¤Âë
-	private String uid = null;		//µÇÂ½µÄÓÃ»§Ãû
-	private String pass = null;		//µÇÂ½ÃÜÂë
-	private String pinCode = null;	//PINÂë
-	private String r1 = null, r2 = null;	//PIN²½ÖèĞèÒªµÄr1,r2
+	private String location = null, jsessionid = null, valid = null, code = null;	//å‡ ä¸ªé‡è¦çš„ç™»é™†å˜é‡,locationç”¨äºæ‰¾åˆ°ä¸»é¡µ,JSESSIONIDç”¨äºheaderçš„æ ‡è¯†,validç”¨äºè´¦å·å¯†ç ç™»é™†åŠ å¯†,codeç”¨äºéªŒè¯ç 
+	private String uid = null;		//ç™»é™†çš„ç”¨æˆ·å
+	private String pass = null;		//ç™»é™†å¯†ç 
+	private String pinCode = null;	//PINç 
+	private String r1 = null, r2 = null;	//PINæ­¥éª¤éœ€è¦çš„r1,r2
 	public final String codePath = "code.jpg";
 	SpiderLogin(OkHttpClient client) {
 		this.client = client;
@@ -41,7 +41,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½1.»ñÈ¡JSESSIONID
+	 * ç™»é™†1.è·å–JSESSIONID
 	 * @param button
 	 * @param contentPane
 	 * @throws Exception
@@ -53,7 +53,7 @@ public class SpiderLogin {
 		call.enqueue(new Callback() {
 			public void onResponse(Response response) throws IOException {
 				String body = response.body().string();
-				//¸ù¾İcookieÕÒµ½JSESSIONID,×÷Îª¿Í»§¶ËµÄ±êÊ¶
+				//æ ¹æ®cookieæ‰¾åˆ°JSESSIONID,ä½œä¸ºå®¢æˆ·ç«¯çš„æ ‡è¯†
 				String setCookie = response.header("Set-Cookie");
 				if(setCookie == null) {
 					return;
@@ -79,7 +79,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½2.»ñÈ¡location
+	 * ç™»é™†2.è·å–location
 	 * @param location
 	 */
 	public void getHome(String location) {
@@ -100,7 +100,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½3.»ñÈ¡ÑéÖ¤Âë
+	 * ç™»é™†3.è·å–éªŒè¯ç 
 	 */
 	public void getCode() {
 		Request request = new Request.Builder().url("http://www.ctb988.net/img.jpg?0.16911522029540038").addHeader("Cookie", "JSESSIONID=" + jsessionid).build();
@@ -128,7 +128,7 @@ public class SpiderLogin {
 		});
 	}
 	/**
-	 * µÇÂ½4.»ñÈ¡ÓÃ»§ÃûÃÜÂëµÇÂ½ËùĞèµÄvalid
+	 * ç™»é™†4.è·å–ç”¨æˆ·åå¯†ç ç™»é™†æ‰€éœ€çš„valid
 	 */
 	
 	public void getValid() {
@@ -155,10 +155,10 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½5.¸ù¾İ»ñÈ¡µÄvalid¼ÓÃÜ,¿ªÊ¼µÚÒ»´ÎµÇÂ½
+	 * ç™»é™†5.æ ¹æ®è·å–çš„validåŠ å¯†,å¼€å§‹ç¬¬ä¸€æ¬¡ç™»é™†
 	 */
 	public void firstLogin() {
-		pass = SHA1(valid + code + SHA1("voodoo_people_" + uid + SHA1(pass)));		//»ñÈ¡¼ÓÃÜºóµÄpass
+		pass = SHA1(valid + code + SHA1("voodoo_people_" + uid + SHA1(pass)));		//è·å–åŠ å¯†åçš„pass
 		FormEncodingBuilder feBuilder = new FormEncodingBuilder();
 		feBuilder.add("code", code);
 		feBuilder.add("lang", "EN");
@@ -182,7 +182,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½6.»ñÈ¡PINĞèÒªµÄr1,r2
+	 * ç™»é™†6.è·å–PINéœ€è¦çš„r1,r2
 	 */
 	public void getPin() {
 		
@@ -191,7 +191,7 @@ public class SpiderLogin {
 		callCode.enqueue(new Callback() {
 			public void onResponse(Response response) throws IOException{
 				String body = response.body().string();
-				Matcher matcher = Pattern.compile("(?<=var r\\d=').+(?=';)").matcher(body);		//·Ö±ğÌáÈ¡r1,r2µÄÕıÔò±í´ïÊ½
+				Matcher matcher = Pattern.compile("(?<=var r\\d=').+(?=';)").matcher(body);		//åˆ†åˆ«æå–r1,r2çš„æ­£åˆ™è¡¨è¾¾å¼
 				if(!matcher.find())
 					return;
 				r1 = matcher.group();
@@ -212,7 +212,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * µÇÂ½7.×îºóPINµÄµÇÂ½
+	 * ç™»é™†7.æœ€åPINçš„ç™»é™†
 	 */
 	public void secondLogin() {
 		pinCode = SHA1(r1 + r2 + SHA1("pin_" + uid + pinCode));
@@ -233,7 +233,7 @@ public class SpiderLogin {
 	}
 	
 	/**
-	 * JAVA¿â×Ô´øµÄSHA1¼ÓÃÜ
+	 * JAVAåº“è‡ªå¸¦çš„SHA1åŠ å¯†
 	 * @param decript
 	 * @return
 	 */
@@ -245,7 +245,7 @@ public class SpiderLogin {
             byte messageDigest[] = digest.digest();
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            // ×Ö½ÚÊı×é×ª»»Îª Ê®Áù½øÖÆ Êı
+            // å­—èŠ‚æ•°ç»„è½¬æ¢ä¸º åå…­è¿›åˆ¶ æ•°
             for (int i = 0; i < messageDigest.length; i++) {
                 String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
                 if (shaHex.length() < 2) {
