@@ -6,7 +6,7 @@ import java.util.Calendar;
 import com.ypq.DataSet.Data;
 
 /**
- * è¿™æ˜¯ä¸€ä¸ªäºŒç»´æ•°ç»„,æ¯ä¸€è¡Œæ˜¯ä»£è¡¨winOrPlace,æ¯ä¸€åˆ—ä»£è¡¨ä¸åŒçš„é©¬,å…¶ä¸­çš„å…ƒç´ ä»£è¡¨äº†å½“å‰æœ€ä½çš„æŠ˜æ‰£.æ³¨æ„winOrPlace=0æ˜¯win,=1æ˜¯place,=2æ˜¯winplace
+ * ÕâÊÇÒ»¸ö¶şÎ¬Êı×é,Ã¿Ò»ĞĞÊÇ´ú±íwinOrPlace,Ã¿Ò»ÁĞ´ú±í²»Í¬µÄÂí,ÆäÖĞµÄÔªËØ´ú±íÁËµ±Ç°×îµÍµÄÕÛ¿Û.×¢ÒâwinOrPlace=0ÊÇwin,=1ÊÇplace,=2ÊÇwinplace
  * @author god
  *
  */
@@ -20,7 +20,7 @@ public class BestData {
 	private ArrayList<ArrayList<Double>> data;
 	
 	/**
-	 * æ ¹æ®winOrPlaceå’Œhorseæ‰¾åˆ°å¯¹åº”çš„discount,å°†æœ€å¤§å€¼æ’å…¥å…¶ä¸­
+	 * ¸ù¾İwinOrPlaceºÍhorseÕÒµ½¶ÔÓ¦µÄdiscount,½«×î´óÖµ²åÈëÆäÖĞ
 	 * @param winOrPlace
 	 * @param horse
 	 * @param discount
@@ -32,13 +32,13 @@ public class BestData {
 	}
 	
 	/**
-	 * å°†å¾—åˆ°çš„æœ€å¤§å€¼æ’å…¥åˆ°DataSetä¸­,å¿½ç•¥æ‰win,place,win_placeå‡ä¸º0çš„æ•°æ®(è¢«è®¤ä¸ºæ˜¯æ²¡æœ‰è¯¥é©¬)
+	 * ½«µÃµ½µÄ×î´óÖµ²åÈëµ½DataSetÖĞ,ºöÂÔµôwin,place,win_place¾ùÎª0µÄÊı¾İ(±»ÈÏÎªÊÇÃ»ÓĞ¸ÃÂí)
 	 * @param race
 	 */
 	public void insert(int race) {
 		for(int horse = 0; horse < HORSE_COUNT; horse++) {
 			if(data.get(WIN).get(horse) > 0 || data.get(PLACE).get(horse) > 0 || data.get(WIN_PLACE).get(horse) > 0) {
-				//å› ä¸ºå­˜å‚¨åœ¨txtä¸­çš„è®°å½•æ²¡æœ‰è®°å½•æ—¥æœŸ,æ‰€ä»¥ç»Ÿä¸€é»˜è®¤ä¸º1970.01.01
+				//ÒòÎª´æ´¢ÔÚtxtÖĞµÄ¼ÇÂ¼Ã»ÓĞ¼ÇÂ¼ÈÕÆÚ,ËùÒÔÍ³Ò»Ä¬ÈÏÎª1970.01.01
 				Calendar calendar = Calendar.getInstance();
 				calendar.set(1970, 0, 1);
 				DataSet.getInstance().getElement(race, horse).add(new Data(calendar.getTime(), data.get(WIN).get(horse), data.get(PLACE).get(horse), data.get(WIN_PLACE).get(horse)));
@@ -47,14 +47,14 @@ public class BestData {
 	}
 	
 	/**
-	 * åˆå§‹åŒ–æ•´ä¸ªæ•°ç»„
+	 * ³õÊ¼»¯Õû¸öÊı×é
 	 */
 	public BestData() {
 		data = new ArrayList<ArrayList<Double>>(WIN_OR_PLACE_COUNT);
 		for(int i = 0; i < WIN_OR_PLACE_COUNT; i++) {
 			data.add(i, new ArrayList<Double>(HORSE_COUNT));
 			for(int j = 0; j < HORSE_COUNT; j++) {
-				data.get(i).add(j, new Double(76));			//æ²¡æœ‰æ•°æ®çš„æ—¶å€™è®¤ä¸ºæŠ˜æ‰£æ˜¯76
+				data.get(i).add(j, new Double(76));			//Ã»ÓĞÊı¾İµÄÊ±ºòÈÏÎªÕÛ¿ÛÊÇ76
 			}
 		}
 	}

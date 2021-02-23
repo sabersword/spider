@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 /**
- * 灏佽浜唋og4j鐨勬棩蹇楃被,閲囩敤鍗曚緥妯″紡
+ * 封装了log4j的日志类,采用单例模式
  * @author god
  *
  */

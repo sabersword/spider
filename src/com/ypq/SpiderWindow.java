@@ -28,21 +28,21 @@ import com.squareup.okhttp.OkHttpClient;
 public class SpiderWindow extends JFrame {
 
 	/**
-	 * ä¸ºäº†é˜²æ­¢warning
+	 * ÎªÁË·ÀÖ¹warning
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private OkHttpClient client;
-	private GetData getData;			//å°è£…äº†httpçš„getæ–¹æ³•,è·å–é©¬æ•°æ®
-	private TimerTask1s timerTask1s;	//æŒ‡æ˜å®šæ—¶å™¨åšçš„ä»»åŠ¡
-	private Timer timer1s;				//ä¸€ç§’å®šæ—¶å™¨,ç”¨äºå®šæ—¶è§¦å‘æŸäº›äº‹ä»¶
+	private GetData getData;			//·â×°ÁËhttpµÄget·½·¨,»ñÈ¡ÂíÊı¾İ
+	private TimerTask1s timerTask1s;	//Ö¸Ã÷¶¨Ê±Æ÷×öµÄÈÎÎñ
+	private Timer timer1s;				//Ò»Ãë¶¨Ê±Æ÷,ÓÃÓÚ¶¨Ê±´¥·¢Ä³Ğ©ÊÂ¼ş
 	private JTextField textRaceType;
-	private ArrayList<MultipleAxis> multipleAxisList;		//å…ƒç´ æ˜¯å›¾çš„list,åŒ…å«äº†14ä¸ªå›¾(1-14åªé©¬)
-	private final int X = 10;		//ç¬¬ä¸€ä¸ªå›¾çš„å·¦ä¸Šè§’Xåæ ‡
-	private final int Y = 40;		//ç¬¬äºŒä¸ªå›¾çš„å³ä¸Šè§’Yåæ ‡
-	private int width = 320;		//æ¯ä¸€ä¸ªå›¾çš„å®½åº¦
-	private int height = 230;		//æ¯ä¸€ä¸ªå›¾çš„é«˜åº¦
-	private int rowCount = 4;		//åœ¨ä¸€è¡Œé‡Œæœ‰å¤šå°‘ä¸ªå›¾
+	private ArrayList<MultipleAxis> multipleAxisList;		//ÔªËØÊÇÍ¼µÄlist,°üº¬ÁË14¸öÍ¼(1-14Ö»Âí)
+	private final int X = 10;		//µÚÒ»¸öÍ¼µÄ×óÉÏ½ÇX×ø±ê
+	private final int Y = 40;		//µÚ¶ş¸öÍ¼µÄÓÒÉÏ½ÇY×ø±ê
+	private int width = 320;		//Ã¿Ò»¸öÍ¼µÄ¿í¶È
+	private int height = 230;		//Ã¿Ò»¸öÍ¼µÄ¸ß¶È
+	private int rowCount = 4;		//ÔÚÒ»ĞĞÀïÓĞ¶àÉÙ¸öÍ¼
 	private JTextField textDate;
 	private JTextField textWidth;
 	private JTextField textHeight;
@@ -65,7 +65,7 @@ public class SpiderWindow extends JFrame {
 	}
 	
 	/**
-	 * è®¾å®šæ•´ä¸ªç»˜å›¾æ•°ç»„çš„åœºæ¬¡
+	 * Éè¶¨Õû¸ö»æÍ¼Êı×éµÄ³¡´Î
 	 * @param race
 	 */
 	public void setMultipleAxisRace(int race) {
@@ -75,7 +75,7 @@ public class SpiderWindow extends JFrame {
 	}
 	
 	/**
-	 * é‡æ–°ç¼–æ’14åªé©¬çš„å›¾
+	 * ÖØĞÂ±àÅÅ14Ö»ÂíµÄÍ¼
 	 */
 	public void resize() {
 		rowCount = Integer.parseInt(textRowCount.getText());
@@ -217,7 +217,7 @@ public class SpiderWindow extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-					//å¼€å§‹é”®ä½œç”¨,ç¦ç”¨å¤§éƒ¨åˆ†æ–‡æœ¬æ¡†,è¯»å–å­˜é‡æ•°æ®(å¦‚æœæœ‰çš„è¯),å¼€å¯å®šæ—¶è·å–æ•°æ®å’Œå®šæ—¶ç”»å›¾
+					//¿ªÊ¼¼ü×÷ÓÃ,½ûÓÃ´ó²¿·ÖÎÄ±¾¿ò,¶ÁÈ¡´æÁ¿Êı¾İ(Èç¹ûÓĞµÄ»°),¿ªÆô¶¨Ê±»ñÈ¡Êı¾İºÍ¶¨Ê±»­Í¼
 					if(btnStart.isEnabled()) {
 						btnStart.setEnabled(false);
 						textDate.setEditable(false);
@@ -232,24 +232,24 @@ public class SpiderWindow extends JFrame {
 			}
 		});
 		
-		//-----------------ä»¥ä¸‹ä»£ç ä¸ºè‡ªå·±æ·»åŠ ,éç¼–è¾‘å™¨è‡ªåŠ¨ç”Ÿæˆ-----------------------//
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);		//çª—å£æœ€å¤§åŒ–
-		//è®¾ç½®æ–‡æœ¬æ¡†çš„åˆå§‹å€¼
+		//-----------------ÒÔÏÂ´úÂëÎª×Ô¼ºÌí¼Ó,·Ç±à¼­Æ÷×Ô¶¯Éú³É-----------------------//
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);		//´°¿Ú×î´ó»¯
+		//ÉèÖÃÎÄ±¾¿òµÄ³õÊ¼Öµ
 		textDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 		textRaceType.setText("3H");
 		textRowCount.setText(String.valueOf(rowCount));
 		textWidth.setText(String.valueOf(width));
 		textHeight.setText(String.valueOf(height));
 		
-		//åˆ›å»ºç»˜å›¾æ•°ç»„å¯¹è±¡,å¹¶ä¸”æŒ‰é»˜è®¤å‚æ•°ç¼–æ’14åªé©¬
+		//´´½¨»æÍ¼Êı×é¶ÔÏó,²¢ÇÒ°´Ä¬ÈÏ²ÎÊı±àÅÅ14Ö»Âí
 		multipleAxisList = new ArrayList<MultipleAxis>();
-		for(int horse = 1; horse <= 14; horse++) {		//è¿™é‡Œå¼ºåˆ¶å‡è®¾åªæœ‰14åªé©¬
+		for(int horse = 1; horse <= 14; horse++) {		//ÕâÀïÇ¿ÖÆ¼ÙÉèÖ»ÓĞ14Ö»Âí
 			MultipleAxis ma = new MultipleAxis(horse);
 			contentPane.add(ma.getChartpanel());
 			multipleAxisList.add(ma);
 		}
 		resize();
-		//æ–°å»ºè·å–æ•°æ®,å®šæ—¶å™¨,å®šæ—¶ä»»åŠ¡å¯¹è±¡
+		//ĞÂ½¨»ñÈ¡Êı¾İ,¶¨Ê±Æ÷,¶¨Ê±ÈÎÎñ¶ÔÏó
 		getData = new GetData(textDate.getText(), textRaceType.getText());
 		timer1s = new Timer();
 		timerTask1s = new TimerTask1s(getData, multipleAxisList);

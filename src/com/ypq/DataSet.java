@@ -16,20 +16,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ä¸€ä¸ªç”¨ArrayListç»„æˆçš„äºŒç»´æ•°ç»„,æ¯ä¸€è¡Œä»£è¡¨ä¸åŒåœºæ¬¡,æ¯ä¸€åˆ—ä»£è¡¨ä¸åŒçš„é©¬,é‡Œé¢çš„å…ƒç´ æ˜¯LinkListç»„æˆçš„æŒ‰æ—¶é—´æ’åˆ—çš„æŠ˜æ‰£.é‡‡ç”¨å•ä¾‹æ¨¡å¼,åªèƒ½å­˜åœ¨ä¸€ä¸ªDataSet
+ * Ò»¸öÓÃArrayList×é³ÉµÄ¶şÎ¬Êı×é,Ã¿Ò»ĞĞ´ú±í²»Í¬³¡´Î,Ã¿Ò»ÁĞ´ú±í²»Í¬µÄÂí,ÀïÃæµÄÔªËØÊÇLinkList×é³ÉµÄ°´Ê±¼äÅÅÁĞµÄÕÛ¿Û.²ÉÓÃµ¥ÀıÄ£Ê½,Ö»ÄÜ´æÔÚÒ»¸öDataSet
  * @author god
  *
  */
 public class DataSet {
 	
 	/**
-	 * DataSeté‡Œé¢å…·ä½“å‚¨å­˜çš„å…ƒç´ element,ä¸»è¦åŒ…å«äº†æ—¶é—´,win,place,win_place.ä¸Šè¿°4è€…æ„æˆäº†xyè½´çš„æ‰€æœ‰æ•°æ®
+	 * DataSetÀïÃæ¾ßÌå´¢´æµÄÔªËØelement,Ö÷Òª°üº¬ÁËÊ±¼ä,win,place,win_place.ÉÏÊö4Õß¹¹³ÉÁËxyÖáµÄËùÓĞÊı¾İ
 	 * @author god
 	 *
 	 */
 	public static class Data implements Comparable<Data>{
 		/**
-		 * é‡å†™hashCode,ä¸»è¦åˆ©ç”¨HashSetæ¥å»æ‰æ—¶é—´ç›¸åŒçš„æ•°æ®.å› ä¸ºåˆ¤æ–­ä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸åŒå°±æ˜¯é hashCodeå’Œequals
+		 * ÖØĞ´hashCode,Ö÷ÒªÀûÓÃHashSetÀ´È¥µôÊ±¼äÏàÍ¬µÄÊı¾İ.ÒòÎªÅĞ¶ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàÍ¬¾ÍÊÇ¿¿hashCodeºÍequals
 		 */
 		@Override
 		public int hashCode() {
@@ -37,7 +37,7 @@ public class DataSet {
 		}
 
 		/**
-		 * é‡å†™equals,åŸå› åŒä¸Š
+		 * ÖØĞ´equals,Ô­ÒòÍ¬ÉÏ
 		 */
 		@Override
 		public boolean equals(Object obj) {
@@ -47,7 +47,7 @@ public class DataSet {
 		}
 		
 		/**
-		 * é‡å†™compareTo,ç”¨äºCollections.sort()æ’åºç”¨,æ‰¾å‡ºæœ€å¤§å’Œæœ€å°çš„æŠ˜æ‰£
+		 * ÖØĞ´compareTo,ÓÃÓÚCollections.sort()ÅÅĞòÓÃ,ÕÒ³ö×î´óºÍ×îĞ¡µÄÕÛ¿Û
 		 */
 		public int compareTo(Data d) {
 			double max = Math.max(Math.max(win, place), win_place);
@@ -56,7 +56,7 @@ public class DataSet {
 		}
 		
 		/**
-		 * æ„é€ å‡½æ•°,å°†ä¼ å…¥çš„å‚æ•°å†™å…¥åˆ°æˆå‘˜å˜é‡
+		 * ¹¹Ôìº¯Êı,½«´«ÈëµÄ²ÎÊıĞ´Èëµ½³ÉÔ±±äÁ¿
 		 * @param date
 		 * @param win
 		 * @param place
@@ -70,7 +70,7 @@ public class DataSet {
 		}
 
 		/**
-		 * æ„é€ å‡½æ•°,åˆå§‹åŒ–nullæ—¥æœŸå’Œwin,place,win_place
+		 * ¹¹Ôìº¯Êı,³õÊ¼»¯nullÈÕÆÚºÍwin,place,win_place
 		 */
 		public Data() {
 			this.date = null;
@@ -80,7 +80,7 @@ public class DataSet {
 		}
 
 		/**
-		 * é‡å†™toString,ä¸»è¦æ˜¯è®°å½•åˆ°æ–‡ä»¶æ¯ä¸€è¡Œçš„æ—¶å€™æ–¹ä¾¿è°ƒç”¨
+		 * ÖØĞ´toString,Ö÷ÒªÊÇ¼ÇÂ¼µ½ÎÄ¼şÃ¿Ò»ĞĞµÄÊ±ºò·½±ãµ÷ÓÃ
 		 * @param race
 		 * @param horse
 		 * @return
@@ -95,14 +95,14 @@ public class DataSet {
 		public double win_place;
 	}
 	
-	private final int RACE_COUNT = 16;			//å‡è®¾åœºæ¬¡ä¸å¤šäº15åœº(å»æ‰åœºæ¬¡ä¸º0çš„ä¸€åœº)
-	private final int HORSE_COUNT = 16;			//å‡è®¾é©¬ä¸è¶…è¿‡15åŒ¹(å»æ‰é©¬åŒ¹ä¸º0çš„ä¸€åŒ¹)
-	private String filePath = null;				//è®°å½•æ–‡ä»¶çš„è·¯å¾„
-	private CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>> data;		//ä½¿ç”¨CopyOnWriteArrayListå¯ä»¥ä¿è¯çº¿ç¨‹å®‰å…¨,ä½¿ç”¨Collections.synchronizedListçš„è¯è¿˜æ˜¯ä¼šå‡ºç°çº¿ç¨‹ä¸å®‰å…¨çš„æƒ…å†µ
-	private static final DataSet instance = new DataSet();				//å•ä¾‹æ¨¡å¼çš„å®ä¾‹
+	private final int RACE_COUNT = 16;			//¼ÙÉè³¡´Î²»¶àÓÚ15³¡(È¥µô³¡´ÎÎª0µÄÒ»³¡)
+	private final int HORSE_COUNT = 16;			//¼ÙÉèÂí²»³¬¹ı15Æ¥(È¥µôÂíÆ¥Îª0µÄÒ»Æ¥)
+	private String filePath = null;				//¼ÇÂ¼ÎÄ¼şµÄÂ·¾¶
+	private CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>> data;		//Ê¹ÓÃCopyOnWriteArrayList¿ÉÒÔ±£Ö¤Ïß³Ì°²È«,Ê¹ÓÃCollections.synchronizedListµÄ»°»¹ÊÇ»á³öÏÖÏß³Ì²»°²È«µÄÇé¿ö
+	private static final DataSet instance = new DataSet();				//µ¥ÀıÄ£Ê½µÄÊµÀı
 
 	/**
-	 * æ„é€ å‡½æ•°,åˆå§‹åŒ–CopyOnWriteArrayListæ„æˆçš„äºŒç»´æ•°ç»„
+	 * ¹¹Ôìº¯Êı,³õÊ¼»¯CopyOnWriteArrayList¹¹³ÉµÄ¶şÎ¬Êı×é
 	 */
 	private DataSet() {
 		data = new CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>>();
@@ -114,7 +114,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * è·å–å•ä¾‹æ¨¡å¼çš„å®ä¾‹
+	 * »ñÈ¡µ¥ÀıÄ£Ê½µÄÊµÀı
 	 * @return
 	 */
 	public static DataSet getInstance() {
@@ -122,7 +122,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * è·å–äºŒç»´æ•°ç»„ä¸­çš„ä¸€ä¸ªå…ƒç´ 
+	 * »ñÈ¡¶şÎ¬Êı×éÖĞµÄÒ»¸öÔªËØ
 	 * @param race
 	 * @param horse
 	 * @return
@@ -132,7 +132,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * å°†å…ƒç´ æ’å…¥åˆ°äºŒç»´æ•°ç»„ä¸­
+	 * ½«ÔªËØ²åÈëµ½¶şÎ¬Êı×éÖĞ
 	 * @param race
 	 * @param horse
 	 * @param d
@@ -142,7 +142,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * å°†DataSetçš„æ•°æ®å†™å…¥åˆ°æ–‡ä»¶ä¸­,æ¯æ¬¡æ›´æ–°ä¸€æ¬¡DateSetå°±æ¸…ç©ºæ–‡ä»¶å¹¶å…¨é‡å†™å…¥DataSet.æ ¼å¼ä¸ºåœºæ¬¡	é©¬	win	place	win_place
+	 * ½«DataSetµÄÊı¾İĞ´Èëµ½ÎÄ¼şÖĞ,Ã¿´Î¸üĞÂÒ»´ÎDateSet¾ÍÇå¿ÕÎÄ¼ş²¢È«Á¿Ğ´ÈëDataSet.¸ñÊ½Îª³¡´Î	Âí	win	place	win_place
 	 */
 	public void writeFile() {
 		StringBuffer sb = new StringBuffer();
@@ -170,7 +170,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * è¯»å–å­˜åœ¨ç¡¬ç›˜ä¸Šçš„æ–‡ä»¶,åœ¨ç¨‹åºæ­£å¼å¼€å§‹è¿è¡Œçš„æ—¶å€™è¯»å–ä¸€æ¬¡
+	 * ¶ÁÈ¡´æÔÚÓ²ÅÌÉÏµÄÎÄ¼ş,ÔÚ³ÌĞòÕıÊ½¿ªÊ¼ÔËĞĞµÄÊ±ºò¶ÁÈ¡Ò»´Î
 	 */
 	public void readFile() {
 		File file = new File(filePath);
@@ -197,7 +197,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * å¤„ç†è¯»å–æ–‡ä»¶çš„æ¯ä¸€è¡Œæ•°æ®,æ ¼å¼ä¸ºåœºæ¬¡	é©¬	win	place	win_place
+	 * ´¦Àí¶ÁÈ¡ÎÄ¼şµÄÃ¿Ò»ĞĞÊı¾İ,¸ñÊ½Îª³¡´Î	Âí	win	place	win_place
 	 * @param s
 	 */
 	private void dealLine(String s) {
@@ -223,7 +223,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * æ‰¾å‡ºæ•°ç»„ä¸€è¡Œä¸­(åŒä¸€åœºæ¬¡)é‡Œé¢æ‰¾å‡ºæœ€æ—©çš„æ—¶é—´,ä»¥ç¡®å®šxè½´çš„æ¨ªåæ ‡èµ·å§‹å€¼
+	 * ÕÒ³öÊı×éÒ»ĞĞÖĞ(Í¬Ò»³¡´Î)ÀïÃæÕÒ³ö×îÔçµÄÊ±¼ä,ÒÔÈ·¶¨xÖáµÄºá×ø±êÆğÊ¼Öµ
 	 * @param race
 	 * @return
 	 */
@@ -238,14 +238,14 @@ public class DataSet {
 	}
 	
 	/**
-	 * æ‰¾å‡ºäºŒç»´æ•°ç»„æŸä¸€å…ƒç´ çš„æœ€å°æŠ˜æ‰£,ä»¥ç¡®å®šyè½´çºµåæ ‡æœ€å°å€¼
+	 * ÕÒ³ö¶şÎ¬Êı×éÄ³Ò»ÔªËØµÄ×îĞ¡ÕÛ¿Û,ÒÔÈ·¶¨yÖá×İ×ø±ê×îĞ¡Öµ
 	 * @param race
 	 * @param horse
 	 * @return
 	 */
 	public double minDiscount(int race, int horse) {
 		List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
-		double min = 75.0;		//é»˜è®¤æœ€å°75.0
+		double min = 75.0;		//Ä¬ÈÏ×îĞ¡75.0
 		Collections.sort(sortList);
 		if(!sortList.isEmpty()) {
 			min = Math.min(Math.min(sortList.get(0).win, sortList.get(0).place), sortList.get(0).win_place);
@@ -254,14 +254,14 @@ public class DataSet {
 	}
 	
 	/**
-	 * æ‰¾å‡ºäºŒç»´æ•°ç»„æŸä¸€å…ƒç´ çš„æœ€å¤§æŠ˜æ‰£,ä»¥ç¡®å®šyè½´çºµåæ ‡æœ€å¤§å€¼
+	 * ÕÒ³ö¶şÎ¬Êı×éÄ³Ò»ÔªËØµÄ×î´óÕÛ¿Û,ÒÔÈ·¶¨yÖá×İ×ø±ê×î´óÖµ
 	 * @param race
 	 * @param horse
 	 * @return
 	 */
 	public double maxDiscount(int race, int horse) {
 		List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
-		double max = 100.0;		//é»˜è®¤æœ€å¤§100.0
+		double max = 100.0;		//Ä¬ÈÏ×î´ó100.0
 		Collections.sort(sortList);
 		if(!sortList.isEmpty()) {
 			max = Math.max(Math.max(sortList.get(sortList.size() - 1).win, sortList.get(sortList.size() - 1).place), sortList.get(sortList.size() - 1).win_place);
@@ -270,7 +270,7 @@ public class DataSet {
 	}
 	
 	/**
-	 * è®¾å®šè®°å½•æ–‡ä»¶çš„è·¯å¾„
+	 * Éè¶¨¼ÇÂ¼ÎÄ¼şµÄÂ·¾¶
 	 * @param filePath
 	 */
 	public void setFilePath(String filePath) {

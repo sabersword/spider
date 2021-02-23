@@ -11,14 +11,14 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
 /**
- * å°è£…è¿‡çš„tess4j,ä¸»è¦åˆ©ç”¨Tesseractæ¥è¯†åˆ«éªŒè¯ç 
+ * ·â×°¹ıµÄtess4j,Ö÷ÒªÀûÓÃTesseractÀ´Ê¶±ğÑéÖ¤Âë
  * @author god
  *
  */
 public class Recognition {
 
 	/**
-	 * å°è£…è¿‡çš„è¯†åˆ«å›¾ç‰‡,å°†å›¾ç‰‡äºŒå€¼åŒ–åè¯†åˆ«
+	 * ·â×°¹ıµÄÊ¶±ğÍ¼Æ¬,½«Í¼Æ¬¶şÖµ»¯ºóÊ¶±ğ
 	 * @param imgPath
 	 * @return
 	 * @throws IOException
@@ -27,17 +27,17 @@ public class Recognition {
 	public static String recognize(String imgPath) throws IOException, TesseractException {
 		BufferedImage bi = ImageIO.read(new File(imgPath));
 		if(bi == null)
-			return null;		//æ‰“å¼€å¤±è´¥
+			return null;		//´ò¿ªÊ§°Ü
 		
 		int h = bi.getHeight();
 		int w = bi.getWidth();
 		int[][] gray = new int[w][h];
-		//å°†å›¾ç‰‡è½¬æ¢æˆç°åº¦å€¼å­˜å‚¨åœ¨gray[][]æ•°ç»„ä¸­
+		//½«Í¼Æ¬×ª»»³É»Ò¶ÈÖµ´æ´¢ÔÚgray[][]Êı×éÖĞ
 		for(int x = 0; x < w; x++)
 			for(int y = 0; y < h; y++) {
 				gray[x][y] = getGray(bi.getRGB(x, y));
 			}
-		//æ–°å»ºä¸€ä¸ªç¼“å†²åŒºå­˜æ”¾äºŒå€¼åŒ–åçš„å›¾ç‰‡nbi
+		//ĞÂ½¨Ò»¸ö»º³åÇø´æ·Å¶şÖµ»¯ºóµÄÍ¼Æ¬nbi
 		BufferedImage nbi = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY);
 		for(int x = 0; x < w; x++)
 			for(int y = 0; y < h; y++) {
@@ -52,19 +52,19 @@ public class Recognition {
 			}
 		ImageIO.write(nbi, "jpg", new File("aaa.jpg"));
 		
-		//å¼€å§‹è¯†åˆ«
+		//¿ªÊ¼Ê¶±ğ
 		Tesseract instance = Tesseract.getInstance();
-		instance.setTessVariable("tessedit_char_whitelist", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");		//åŠ å…¥ç™½åå•,åªè¯†åˆ«æ•°å­—
-		instance.setPageSegMode(7);											//å‡è®¾åªæœ‰ä¸€è¡Œæ–‡æœ¬
+		instance.setTessVariable("tessedit_char_whitelist", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");		//¼ÓÈë°×Ãûµ¥,Ö»Ê¶±ğÊı×Ö
+		instance.setPageSegMode(7);											//¼ÙÉèÖ»ÓĞÒ»ĞĞÎÄ±¾
 		String result=instance.doOCR(nbi);
-		result = result.replaceAll(" ", "");								//å»é™¤è¯†åˆ«å‡ºæ¥çš„ç©ºæ ¼æˆ–è€…æ¢è¡Œ
+		result = result.replaceAll(" ", "");								//È¥³ıÊ¶±ğ³öÀ´µÄ¿Õ¸ñ»òÕß»»ĞĞ
 		result = result.replaceAll("\n", "");
 		
 		return result;
 	}
 	
 	/**
-	 * æ ¹æ®å›¾ç‰‡çš„rgbå€¼å–ä¸‰è€…ä¹‹å’Œçš„å¹³å‡å€¼,å¾—åˆ°ç°åº¦å€¼
+	 * ¸ù¾İÍ¼Æ¬µÄrgbÖµÈ¡ÈıÕßÖ®ºÍµÄÆ½¾ùÖµ,µÃµ½»Ò¶ÈÖµ
 	 * @param rgb
 	 * @return (r + g + b) / 3
 	 */
@@ -77,7 +77,7 @@ public class Recognition {
 	}
 	
 	/**
-	 * æŸä¸€ç‚¹çš„ç°åº¦å–å‘¨å›´8ä¸ªç‚¹åŠ è‡ªèº«ç°åº¦çš„å¹³å‡å€¼
+	 * Ä³Ò»µãµÄ»Ò¶ÈÈ¡ÖÜÎ§8¸öµã¼Ó×ÔÉí»Ò¶ÈµÄÆ½¾ùÖµ
 	 * @param gray
 	 * @param x
 	 * @param y
@@ -98,5 +98,5 @@ public class Recognition {
 		return sum / 9;
 	}
 	
-	public static final int threshold = 150;		//è®¾ç½®äºŒå€¼åŒ–çš„é˜ˆå€¼
+	public static final int threshold = 150;		//ÉèÖÃ¶şÖµ»¯µÄãĞÖµ
 }

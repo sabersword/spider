@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 
 /**
- * ä¾›1så®šæ—¶å™¨è°ƒç”¨,æ¯ä¸ª1såšæŒ‡å®šçš„ä»»åŠ¡
+ * ¹©1s¶¨Ê±Æ÷µ÷ÓÃ,Ã¿¸ö1s×öÖ¸¶¨µÄÈÎÎñ
  * @author god
  *
  */
@@ -13,7 +13,7 @@ public class TimerTask1s extends TimerTask{
 	private ArrayList<MultipleAxis> al;
 	
 	/**
-	 * æ„é€ å‡½æ•°,åˆå§‹åŒ–è¦åšçš„ä»»åŠ¡,åˆ†åˆ«æ˜¯getDataè·å–æ•°æ®å’Œæ›´æ–°åæ ‡è½´
+	 * ¹¹Ôìº¯Êı,³õÊ¼»¯Òª×öµÄÈÎÎñ,·Ö±ğÊÇgetData»ñÈ¡Êı¾İºÍ¸üĞÂ×ø±êÖá
 	 * @param getData
 	 * @param al
 	 */
@@ -23,7 +23,7 @@ public class TimerTask1s extends TimerTask{
 	}
 	
 	/**
-	 * æŒ‡æ˜å®šæ—¶çš„ä»»åŠ¡
+	 * Ö¸Ã÷¶¨Ê±µÄÈÎÎñ
 	 */
 	@Override
 	public void run() {
