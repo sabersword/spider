@@ -1,10 +1,6 @@
 package com.ypq;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -16,265 +12,281 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Ò»¸öÓÃArrayList×é³ÉµÄ¶şÎ¬Êı×é,Ã¿Ò»ĞĞ´ú±í²»Í¬³¡´Î,Ã¿Ò»ÁĞ´ú±í²»Í¬µÄÂí,ÀïÃæµÄÔªËØÊÇLinkList×é³ÉµÄ°´Ê±¼äÅÅÁĞµÄÕÛ¿Û.²ÉÓÃµ¥ÀıÄ£Ê½,Ö»ÄÜ´æÔÚÒ»¸öDataSet
- * @author god
+ * ä¸€ä¸ªç”¨ArrayListç»„æˆçš„äºŒç»´æ•°ç»„,æ¯ä¸€è¡Œä»£è¡¨ä¸åŒåœºæ¬¡,æ¯ä¸€åˆ—ä»£è¡¨ä¸åŒçš„é©¬,é‡Œé¢çš„å…ƒç´ æ˜¯LinkListç»„æˆçš„æŒ‰æ—¶é—´æ’åˆ—çš„æŠ˜æ‰£.é‡‡ç”¨å•ä¾‹æ¨¡å¼,åªèƒ½å­˜åœ¨ä¸€ä¸ªDataSet
  *
+ * @author god
  */
 public class DataSet {
-	
-	/**
-	 * DataSetÀïÃæ¾ßÌå´¢´æµÄÔªËØelement,Ö÷Òª°üº¬ÁËÊ±¼ä,win,place,win_place.ÉÏÊö4Õß¹¹³ÉÁËxyÖáµÄËùÓĞÊı¾İ
-	 * @author god
-	 *
-	 */
-	public static class Data implements Comparable<Data>{
-		/**
-		 * ÖØĞ´hashCode,Ö÷ÒªÀûÓÃHashSetÀ´È¥µôÊ±¼äÏàÍ¬µÄÊı¾İ.ÒòÎªÅĞ¶ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàÍ¬¾ÍÊÇ¿¿hashCodeºÍequals
-		 */
-		@Override
-		public int hashCode() {
-			return (int) date.getTime();
-		}
 
-		/**
-		 * ÖØĞ´equals,Ô­ÒòÍ¬ÉÏ
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if(date.getTime() == ((Data)obj).date.getTime())
-				return true;
-			return false;
-		}
-		
-		/**
-		 * ÖØĞ´compareTo,ÓÃÓÚCollections.sort()ÅÅĞòÓÃ,ÕÒ³ö×î´óºÍ×îĞ¡µÄÕÛ¿Û
-		 */
-		public int compareTo(Data d) {
-			double max = Math.max(Math.max(win, place), win_place);
-			double dmax = Math.max(Math.max(d.win, d.place), d.win_place);
-			return (int)(max - dmax);
-		}
-		
-		/**
-		 * ¹¹Ôìº¯Êı,½«´«ÈëµÄ²ÎÊıĞ´Èëµ½³ÉÔ±±äÁ¿
-		 * @param date
-		 * @param win
-		 * @param place
-		 * @param win_place
-		 */
-		public Data(Date date, double win, double place, double win_place) {
-			this.date = date;
-			this.win = win;
-			this.place = place;
-			this.win_place = win_place;
-		}
+    /**
+     * DataSeté‡Œé¢å…·ä½“å‚¨å­˜çš„å…ƒç´ element,ä¸»è¦åŒ…å«äº†æ—¶é—´,win,place,win_place.ä¸Šè¿°4è€…æ„æˆäº†xyè½´çš„æ‰€æœ‰æ•°æ®
+     *
+     * @author god
+     */
+    public static class Data implements Comparable<Data> {
+        /**
+         * é‡å†™hashCode,ä¸»è¦åˆ©ç”¨HashSetæ¥å»æ‰æ—¶é—´ç›¸åŒçš„æ•°æ®.å› ä¸ºåˆ¤æ–­ä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸åŒå°±æ˜¯é hashCodeå’Œequals
+         */
+        @Override
+        public int hashCode() {
+            return (int) date.getTime();
+        }
 
-		/**
-		 * ¹¹Ôìº¯Êı,³õÊ¼»¯nullÈÕÆÚºÍwin,place,win_place
-		 */
-		public Data() {
-			this.date = null;
-			this.win = 0;
-			this.place = 0;
-			this.win_place = 0;
-		}
+        /**
+         * é‡å†™equals,åŸå› åŒä¸Š
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (date.getTime() == ((Data) obj).date.getTime()) {
 
-		/**
-		 * ÖØĞ´toString,Ö÷ÒªÊÇ¼ÇÂ¼µ½ÎÄ¼şÃ¿Ò»ĞĞµÄÊ±ºò·½±ãµ÷ÓÃ
-		 * @param race
-		 * @param horse
-		 * @return
-		 */
-		public String toString(int race, int horse) {
-			return race + "\t" + horse + "\t" + new SimpleDateFormat("HH:mm:ss").format(date) + "\t" + win + "\t" + place + "\t" + win_place + "\t\r\n";
-		}
-		
-		public Date date;
-		public double win;
-		public double place;
-		public double win_place;
-	}
-	
-	private final int RACE_COUNT = 16;			//¼ÙÉè³¡´Î²»¶àÓÚ15³¡(È¥µô³¡´ÎÎª0µÄÒ»³¡)
-	private final int HORSE_COUNT = 16;			//¼ÙÉèÂí²»³¬¹ı15Æ¥(È¥µôÂíÆ¥Îª0µÄÒ»Æ¥)
-	private String filePath = null;				//¼ÇÂ¼ÎÄ¼şµÄÂ·¾¶
-	private CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>> data;		//Ê¹ÓÃCopyOnWriteArrayList¿ÉÒÔ±£Ö¤Ïß³Ì°²È«,Ê¹ÓÃCollections.synchronizedListµÄ»°»¹ÊÇ»á³öÏÖÏß³Ì²»°²È«µÄÇé¿ö
-	private static final DataSet instance = new DataSet();				//µ¥ÀıÄ£Ê½µÄÊµÀı
+                return true;
+            }
+            return false;
+        }
 
-	/**
-	 * ¹¹Ôìº¯Êı,³õÊ¼»¯CopyOnWriteArrayList¹¹³ÉµÄ¶şÎ¬Êı×é
-	 */
-	private DataSet() {
-		data = new CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>>();
-		for(int race = 0; race < RACE_COUNT; race++) {
-			data.add(race, new CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>());
-			for(int horse = 0; horse < HORSE_COUNT; horse++)
-			data.get(race).add(horse, new CopyOnWriteArrayList<Data>());
-		}
-	}
-	
-	/**
-	 * »ñÈ¡µ¥ÀıÄ£Ê½µÄÊµÀı
-	 * @return
-	 */
-	public static DataSet getInstance() {
-		return instance;
-	}
-	
-	/**
-	 * »ñÈ¡¶şÎ¬Êı×éÖĞµÄÒ»¸öÔªËØ
-	 * @param race
-	 * @param horse
-	 * @return
-	 */
-	public CopyOnWriteArrayList<Data> getElement(int race, int horse) {
-		return data.get(race).get(horse);
-	}
-	
-	/**
-	 * ½«ÔªËØ²åÈëµ½¶şÎ¬Êı×éÖĞ
-	 * @param race
-	 * @param horse
-	 * @param d
-	 */
-	public void addElement(int race, int horse, Data d) {
-		data.get(race).get(horse).add(d);
-	}
-	
-	/**
-	 * ½«DataSetµÄÊı¾İĞ´Èëµ½ÎÄ¼şÖĞ,Ã¿´Î¸üĞÂÒ»´ÎDateSet¾ÍÇå¿ÕÎÄ¼ş²¢È«Á¿Ğ´ÈëDataSet.¸ñÊ½Îª³¡´Î	Âí	win	place	win_place
-	 */
-	public void writeFile() {
-		StringBuffer sb = new StringBuffer();
-		for(int race = 0; race < RACE_COUNT; race++) 
-			for(int horse = 0; horse < HORSE_COUNT; horse++) {
-				for(Data e : data.get(race).get(horse)) {
-					sb.append(e.toString(race, horse));
-				}
-			}
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(filePath, false);
-			fos.write(sb.toString().getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(fos != null)
-					fos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	/**
-	 * ¶ÁÈ¡´æÔÚÓ²ÅÌÉÏµÄÎÄ¼ş,ÔÚ³ÌĞòÕıÊ½¿ªÊ¼ÔËĞĞµÄÊ±ºò¶ÁÈ¡Ò»´Î
-	 */
-	public void readFile() {
-		File file = new File(filePath);
-		BufferedReader reader = null;
-		if(!file.exists())
-			return;
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String s = null;
-			while((s = reader.readLine()) != null) {
-				dealLine(s);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(reader != null)
-					reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	/**
-	 * ´¦Àí¶ÁÈ¡ÎÄ¼şµÄÃ¿Ò»ĞĞÊı¾İ,¸ñÊ½Îª³¡´Î	Âí	win	place	win_place
-	 * @param s
-	 */
-	private void dealLine(String s) {
-		Data d = new Data();
-		try {
-			Matcher matcher = Pattern.compile("([\\d:.]+?(?=\t))").matcher(s);
-			matcher.find();
-			int race = Integer.parseInt(matcher.group());
-			matcher.find();
-			int horse = Integer.parseInt(matcher.group());
-			matcher.find();
-			d.date = new SimpleDateFormat("HH:mm:ss").parse(matcher.group());
-			matcher.find();
-			d.win = Double.parseDouble(matcher.group());
-			matcher.find();
-			d.place = Double.parseDouble(matcher.group());
-			matcher.find();
-			d.win_place = Double.parseDouble(matcher.group());
-			data.get(race).get(horse).add(d);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * ÕÒ³öÊı×éÒ»ĞĞÖĞ(Í¬Ò»³¡´Î)ÀïÃæÕÒ³ö×îÔçµÄÊ±¼ä,ÒÔÈ·¶¨xÖáµÄºá×ø±êÆğÊ¼Öµ
-	 * @param race
-	 * @return
-	 */
-	public long minTime(int race) {
-		long time = 24*60*60*1000;
-		for(int horse = 0; horse < HORSE_COUNT; horse++) {
-			if(!data.get(race).get(horse).isEmpty() &&  data.get(race).get(horse).get(0).date.getTime() < time) {
-				time = data.get(race).get(horse).get(0).date.getTime();
-			}
-		}
-		return time;
-	}
-	
-	/**
-	 * ÕÒ³ö¶şÎ¬Êı×éÄ³Ò»ÔªËØµÄ×îĞ¡ÕÛ¿Û,ÒÔÈ·¶¨yÖá×İ×ø±ê×îĞ¡Öµ
-	 * @param race
-	 * @param horse
-	 * @return
-	 */
-	public double minDiscount(int race, int horse) {
-		List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
-		double min = 75.0;		//Ä¬ÈÏ×îĞ¡75.0
-		Collections.sort(sortList);
-		if(!sortList.isEmpty()) {
-			min = Math.min(Math.min(sortList.get(0).win, sortList.get(0).place), sortList.get(0).win_place);
-		}
-		return min;
-	}
-	
-	/**
-	 * ÕÒ³ö¶şÎ¬Êı×éÄ³Ò»ÔªËØµÄ×î´óÕÛ¿Û,ÒÔÈ·¶¨yÖá×İ×ø±ê×î´óÖµ
-	 * @param race
-	 * @param horse
-	 * @return
-	 */
-	public double maxDiscount(int race, int horse) {
-		List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
-		double max = 100.0;		//Ä¬ÈÏ×î´ó100.0
-		Collections.sort(sortList);
-		if(!sortList.isEmpty()) {
-			max = Math.max(Math.max(sortList.get(sortList.size() - 1).win, sortList.get(sortList.size() - 1).place), sortList.get(sortList.size() - 1).win_place);
-		}
-		return max;
-	}
-	
-	/**
-	 * Éè¶¨¼ÇÂ¼ÎÄ¼şµÄÂ·¾¶
-	 * @param filePath
-	 */
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
+        /**
+         * é‡å†™compareTo,ç”¨äºCollections.sort()æ’åºç”¨,æ‰¾å‡ºæœ€å¤§å’Œæœ€å°çš„æŠ˜æ‰£
+         */
+        @Override
+        public int compareTo(Data d) {
+            double max = Math.max(Math.max(win, place), win_place);
+            double dmax = Math.max(Math.max(d.win, d.place), d.win_place);
+            return (int) (max - dmax);
+        }
+
+        /**
+         * æ„é€ å‡½æ•°,å°†ä¼ å…¥çš„å‚æ•°å†™å…¥åˆ°æˆå‘˜å˜é‡
+         *
+         * @param date
+         * @param win
+         * @param place
+         * @param win_place
+         */
+        public Data(Date date, double win, double place, double win_place) {
+            this.date = date;
+            this.win = win;
+            this.place = place;
+            this.win_place = win_place;
+        }
+
+        /**
+         * æ„é€ å‡½æ•°,åˆå§‹åŒ–nullæ—¥æœŸå’Œwin,place,win_place
+         */
+        public Data() {
+            this.date = null;
+            this.win = 0;
+            this.place = 0;
+            this.win_place = 0;
+        }
+
+        /**
+         * é‡å†™toString,ä¸»è¦æ˜¯è®°å½•åˆ°æ–‡ä»¶æ¯ä¸€è¡Œçš„æ—¶å€™æ–¹ä¾¿è°ƒç”¨
+         *
+         * @param race
+         * @param horse
+         * @return
+         */
+        public String toString(int race, int horse) {
+            return race + "\t" + horse + "\t" + new SimpleDateFormat("HH:mm:ss").format(date) + "\t" + win + "\t" + place + "\t" + win_place + "\t\r\n";
+        }
+
+        public Date date;
+        public double win;
+        public double place;
+        public double win_place;
+    }
+
+    private final int RACE_COUNT = 16;            //å‡è®¾åœºæ¬¡ä¸å¤šäº15åœº(å»æ‰åœºæ¬¡ä¸º0çš„ä¸€åœº)
+    private final int HORSE_COUNT = 16;            //å‡è®¾é©¬ä¸è¶…è¿‡15åŒ¹(å»æ‰é©¬åŒ¹ä¸º0çš„ä¸€åŒ¹)
+    private String filePath = null;                //è®°å½•æ–‡ä»¶çš„è·¯å¾„
+    private CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>> data;        //ä½¿ç”¨CopyOnWriteArrayListå¯ä»¥ä¿è¯çº¿ç¨‹å®‰å…¨,ä½¿ç”¨Collections.synchronizedListçš„è¯è¿˜æ˜¯ä¼šå‡ºç°çº¿ç¨‹ä¸å®‰å…¨çš„æƒ…å†µ
+    private static final DataSet instance = new DataSet();                //å•ä¾‹æ¨¡å¼çš„å®ä¾‹
+
+    /**
+     * æ„é€ å‡½æ•°,åˆå§‹åŒ–CopyOnWriteArrayListæ„æˆçš„äºŒç»´æ•°ç»„
+     */
+    private DataSet() {
+        data = new CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>>();
+        for (int race = 0; race < RACE_COUNT; race++) {
+            data.add(race, new CopyOnWriteArrayList<CopyOnWriteArrayList<Data>>());
+            for (int horse = 0; horse < HORSE_COUNT; horse++) {
+                data.get(race).add(horse, new CopyOnWriteArrayList<Data>());
+            }
+        }
+    }
+
+    /**
+     * è·å–å•ä¾‹æ¨¡å¼çš„å®ä¾‹
+     *
+     * @return
+     */
+    public static DataSet getInstance() {
+        return instance;
+    }
+
+    /**
+     * è·å–äºŒç»´æ•°ç»„ä¸­çš„ä¸€ä¸ªå…ƒç´ 
+     *
+     * @param race
+     * @param horse
+     * @return
+     */
+    public CopyOnWriteArrayList<Data> getElement(int race, int horse) {
+        return data.get(race).get(horse);
+    }
+
+    /**
+     * å°†å…ƒç´ æ’å…¥åˆ°äºŒç»´æ•°ç»„ä¸­
+     *
+     * @param race
+     * @param horse
+     * @param d
+     */
+    public void addElement(int race, int horse, Data d) {
+        data.get(race).get(horse).add(d);
+    }
+
+    /**
+     * å°†DataSetçš„æ•°æ®å†™å…¥åˆ°æ–‡ä»¶ä¸­,æ¯æ¬¡æ›´æ–°ä¸€æ¬¡DateSetå°±æ¸…ç©ºæ–‡ä»¶å¹¶å…¨é‡å†™å…¥DataSet.æ ¼å¼ä¸ºåœºæ¬¡	é©¬	win	place	win_place
+     */
+    public void writeFile() {
+        StringBuffer sb = new StringBuffer();
+        for (int race = 0; race < RACE_COUNT; race++) {
+            for (int horse = 0; horse < HORSE_COUNT; horse++) {
+                for (Data e : data.get(race).get(horse)) {
+                    sb.append(e.toString(race, horse));
+                }
+            }
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(filePath, false);
+            fos.write(sb.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * è¯»å–å­˜åœ¨ç¡¬ç›˜ä¸Šçš„æ–‡ä»¶,åœ¨ç¨‹åºæ­£å¼å¼€å§‹è¿è¡Œçš„æ—¶å€™è¯»å–ä¸€æ¬¡
+     */
+    public void readFile() {
+        File file = new File(filePath);
+        BufferedReader reader = null;
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+                dealLine(s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * å¤„ç†è¯»å–æ–‡ä»¶çš„æ¯ä¸€è¡Œæ•°æ®,æ ¼å¼ä¸ºåœºæ¬¡	é©¬	win	place	win_place
+     *
+     * @param s
+     */
+    private void dealLine(String s) {
+        Data d = new Data();
+        try {
+            Matcher matcher = Pattern.compile("([\\d:.]+?(?=\t))").matcher(s);
+            matcher.find();
+            int race = Integer.parseInt(matcher.group());
+            matcher.find();
+            int horse = Integer.parseInt(matcher.group());
+            matcher.find();
+            d.date = new SimpleDateFormat("HH:mm:ss").parse(matcher.group());
+            matcher.find();
+            d.win = Double.parseDouble(matcher.group());
+            matcher.find();
+            d.place = Double.parseDouble(matcher.group());
+            matcher.find();
+            d.win_place = Double.parseDouble(matcher.group());
+            data.get(race).get(horse).add(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * æ‰¾å‡ºæ•°ç»„ä¸€è¡Œä¸­(åŒä¸€åœºæ¬¡)é‡Œé¢æ‰¾å‡ºæœ€æ—©çš„æ—¶é—´,ä»¥ç¡®å®šxè½´çš„æ¨ªåæ ‡èµ·å§‹å€¼
+     *
+     * @param race
+     * @return
+     */
+    public long minTime(int race) {
+        long time = 24 * 60 * 60 * 1000;
+        for (int horse = 0; horse < HORSE_COUNT; horse++) {
+            if (!data.get(race).get(horse).isEmpty() && data.get(race).get(horse).get(0).date.getTime() < time) {
+                time = data.get(race).get(horse).get(0).date.getTime();
+            }
+        }
+        return time;
+    }
+
+    /**
+     * æ‰¾å‡ºäºŒç»´æ•°ç»„æŸä¸€å…ƒç´ çš„æœ€å°æŠ˜æ‰£,ä»¥ç¡®å®šyè½´çºµåæ ‡æœ€å°å€¼
+     *
+     * @param race
+     * @param horse
+     * @return
+     */
+    public double minDiscount(int race, int horse) {
+        List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
+        double min = 75.0;        //é»˜è®¤æœ€å°75.0
+        Collections.sort(sortList);
+        if (!sortList.isEmpty()) {
+            min = Math.min(Math.min(sortList.get(0).win, sortList.get(0).place), sortList.get(0).win_place);
+        }
+        return min;
+    }
+
+    /**
+     * æ‰¾å‡ºäºŒç»´æ•°ç»„æŸä¸€å…ƒç´ çš„æœ€å¤§æŠ˜æ‰£,ä»¥ç¡®å®šyè½´çºµåæ ‡æœ€å¤§å€¼
+     *
+     * @param race
+     * @param horse
+     * @return
+     */
+    public double maxDiscount(int race, int horse) {
+        List<Data> sortList = new LinkedList<Data>(data.get(race).get(horse));
+        double max = 100.0;        //é»˜è®¤æœ€å¤§100.0
+        Collections.sort(sortList);
+        if (!sortList.isEmpty()) {
+            max = Math.max(Math.max(sortList.get(sortList.size() - 1).win, sortList.get(sortList.size() - 1).place), sortList.get(sortList.size() - 1).win_place);
+        }
+        return max;
+    }
+
+    /**
+     * è®¾å®šè®°å½•æ–‡ä»¶çš„è·¯å¾„
+     *
+     * @param filePath
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
 }

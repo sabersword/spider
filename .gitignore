@@ -66,3 +66,4 @@ fabric.properties
 bin/
 spider.iml
 
+/META-INF

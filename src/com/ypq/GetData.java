@@ -1,136 +1,142 @@
 package com.ypq;
 
+import com.squareup.okhttp.*;
+
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 /**
- * ·â×°ÁËhttpµÄget,ÓÃÓÚ»ñÈ¡Êı¾İ
- * @author god
+ * å°è£…äº†httpçš„get,ç”¨äºè·å–æ•°æ®
  *
+ * @author god
  */
 public class GetData {
-	private String date = null;
-	private String raceType = null; 
-	private int race = 1;				//Ä¬ÈÏµÚÒ»³¡,Èç¹ûÊÇ0µÄ»°Ôò»ñÈ¡È«²¿³¡´Î
-	private OkHttpClient client;
-	private static final String limitDate = "20210830";
-	
-	/**
-	 * »ñÈ¡Êı¾İµÄ·½·¨,ĞèÒªµÄ²ÎÊıÊÇÈÕÆÚdate,ÀàĞÍraceType,³¡´Îrace
-	 */
-	public void toGetData() {
-		//http://info.ctb988.net/betdata?race_date=07-07-2016&race_type=9U&rc=6&m=HK&c=3&lu=0
-		String year = date.split("-")[2];
-	    String month = date.split("-")[1];
-	    String day = date.split("-")[0];
-	    String yearMonthDay = year + month + day;
-	    if (yearMonthDay.compareTo(this.limitDate) > 0)
-	        return;
-		String url = "http://asset.abcd-life.com/bdata?race_date=" + date + "&race_type=" + raceType + "&rc=" + race + "&m=HK&c=3&lu=0";
-		Request request = new Request.Builder().url(url).build();
-		Call call = client.newCall(request);
-		
-		call.enqueue(new Callback() {
-			/**
-			 * http·µ»Ø³É¹¦µÄ·½·¨
-			 */
-			public void onResponse(Response response) throws IOException {
-				String body = response.body().string();
-				BestData bestData = new BestData();
-				int race = 0;
-				//Ñ­»·ÕÒ³öÃ¿Ò»ĞĞµÄÊı¾İ
-				Matcher row = Pattern.compile("\\d{1,2}\\\\t\\d{1,2}\\\\t\\d+\\\\t\\d+\\\\t\\d+(.\\d)?.+?\\\\n").matcher(body);
-				while(row.find()) {
-					String rowData = row.group();
-					//Ñ­»·ÕÒ³öÃ¿Ò»ÁĞÊı¾İ		
-					Matcher column = Pattern.compile("((?<=\\\\n).+?(?=\\\\t))|(\\d+(?=\\\\t))").matcher(rowData);
-					while(column.find()) {
-						race = Integer.parseInt(column.group());
-						column.find();
-						int horse = Integer.parseInt(column.group());
-						column.find();
-						int win = Integer.parseInt(column.group());
-						column.find();
-						int place = Integer.parseInt(column.group());
-						column.find();
-						double discount = Double.parseDouble(column.group());
-						if(win != 0 && place == 0)
-							bestData.join(BestData.WIN, horse, discount);
-						else if(win == 0 && place != 0)
-							bestData.join(BestData.PLACE, horse, discount);
-						else if(win != 0 && place != 0) {
-							bestData.join(BestData.WIN_PLACE, horse, discount);
-						}
-					}
-				}
-				bestData.insert(race);
-				DataSet.getInstance().writeFile();
-			}
-			/**
-			 * http·µ»ØÊ§°ÜµÄ·½·¨
-			 */
-			public void onFailure(Request arg0, IOException arg1) {
-				System.out.println("request toGetData fail!!!");
-			}
-		});
-	}
+    private String date = null;
+    private String raceType = null;
+    private int race = 1;                //é»˜è®¤ç¬¬ä¸€åœº,å¦‚æœæ˜¯0çš„è¯åˆ™è·å–å…¨éƒ¨åœºæ¬¡
+    private OkHttpClient client;
+    private static final String LIMIT_DATE = "20210830";
 
-	/**
-	 * ¹¹Ôìº¯Êı,³õÊ¼»¯Õû¸öÈÕÆÚºÍÀàĞÍ
-	 * @param date
-	 * @param raceType
-	 */
-	public GetData(String date, String raceType) {
-		this.client = new OkHttpClient();
-		this.date = date;
-		this.raceType = raceType;
-	}
+    /**
+     * è·å–æ•°æ®çš„æ–¹æ³•,éœ€è¦çš„å‚æ•°æ˜¯æ—¥æœŸdate,ç±»å‹raceType,åœºæ¬¡race
+     */
+    public void toGetData() {
+        //http://info.ctb988.net/betdata?race_date=07-07-2016&race_type=9U&rc=6&m=HK&c=3&lu=0
+        String year = date.split("-")[2];
+        String month = date.split("-")[1];
+        String day = date.split("-")[0];
+        String yearMonthDay = year + month + day;
+        if (yearMonthDay.compareTo(LIMIT_DATE) > 0) {
+            return;
+        }
+        String url = "http://asset.abcd-life.com/bdata?race_date=" + date + "&race_type=" + raceType + "&rc=" + race + "&m=HK&c=3&lu=0";
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback() {
+            /**
+             * httpè¿”å›æˆåŠŸçš„æ–¹æ³•
+             */
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String body = response.body().string();
+                BestData bestData = new BestData();
+                int race = 0;
+                //å¾ªç¯æ‰¾å‡ºæ¯ä¸€è¡Œçš„æ•°æ®
+                Matcher row = Pattern.compile("\\d{1,2}\\\\t\\d{1,2}\\\\t\\d+\\\\t\\d+\\\\t\\d+(.\\d)?.+?\\\\n").matcher(body);
+                while (row.find()) {
+                    String rowData = row.group();
+                    //å¾ªç¯æ‰¾å‡ºæ¯ä¸€åˆ—æ•°æ®
+                    Matcher column = Pattern.compile("((?<=\\\\n).+?(?=\\\\t))|(\\d+(?=\\\\t))").matcher(rowData);
+                    while (column.find()) {
+                        race = Integer.parseInt(column.group());
+                        column.find();
+                        int horse = Integer.parseInt(column.group());
+                        column.find();
+                        int win = Integer.parseInt(column.group());
+                        column.find();
+                        int place = Integer.parseInt(column.group());
+                        column.find();
+                        double discount = Double.parseDouble(column.group());
+                        if (win != 0 && place == 0) {
+                            bestData.join(BestData.WIN, horse, discount);
+                        } else if (win == 0 && place != 0) {
+                            bestData.join(BestData.PLACE, horse, discount);
+                        } else if (win != 0 && place != 0) {
+                            bestData.join(BestData.WIN_PLACE, horse, discount);
+                        }
+                    }
+                }
+                bestData.insert(race);
+                DataSet.getInstance().writeFile();
+            }
+
+            /**
+             * httpè¿”å›å¤±è´¥çš„æ–¹æ³•
+             */
+            @Override
+            public void onFailure(Request arg0, IOException arg1) {
+                System.out.println("request toGetData fail!!!");
+            }
+        });
+    }
+
+    /**
+     * æ„é€ å‡½æ•°,åˆå§‹åŒ–æ•´ä¸ªæ—¥æœŸå’Œç±»å‹
+     *
+     * @param date
+     * @param raceType
+     */
+    public GetData(String date, String raceType) {
+        this.client = new OkHttpClient();
+        this.date = date;
+        this.raceType = raceType;
+    }
 
 
-	/**
-	 * Éè¶¨³¡´Î
-	 * @param race
-	 */
-	public void setRace(int race) {
-		this.race = race;
-	}
+    /**
+     * è®¾å®šåœºæ¬¡
+     *
+     * @param race
+     */
+    public void setRace(int race) {
+        this.race = race;
+    }
 
-	/**
-	 * Éè¶¨ÈÕÆÚ
-	 * @param date
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
+    /**
+     * è®¾å®šæ—¥æœŸ
+     *
+     * @param date
+     */
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	/**
-	 * Éè¶¨ÀàĞÍ
-	 * @param raceType
-	 */
-	public void setRaceType(String raceType) {
-		this.raceType = raceType;
-	}
+    /**
+     * è®¾å®šç±»å‹
+     *
+     * @param raceType
+     */
+    public void setRaceType(String raceType) {
+        this.raceType = raceType;
+    }
 
-	/**
-	 * »ñµÃÈÕÆÚ
-	 * @return
-	 */
-	public String getDate() {
-		return date;
-	}
+    /**
+     * è·å¾—æ—¥æœŸ
+     *
+     * @return
+     */
+    public String getDate() {
+        return date;
+    }
 
-	/**
-	 * »ñµÃÀàĞÍ
-	 * @return
-	 */
-	public String getRaceType() {
-		return raceType;
-	}
+    /**
+     * è·å¾—ç±»å‹
+     *
+     * @return
+     */
+    public String getRaceType() {
+        return raceType;
+    }
 }
